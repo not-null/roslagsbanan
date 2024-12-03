@@ -1,0 +1,179 @@
+/* General body styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #333;
+  overflow: hidden;
+}
+
+/* Header styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a2a2a;
+  padding: 10px 20px;
+  color: white;
+}
+
+header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header .logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ff4c61;
+}
+
+header .wms {
+  font-size: 1rem;
+  font-weight: lighter;
+}
+
+.header {
+  background-color: #343a40;
+  color: rgba(255, 255, 255, .7);
+  padding: 10px;
+}
+
+.header nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 15px;
+}
+
+.header nav ul li {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+header .profile-icon {
+  font-size: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Main content styles */
+main {
+  padding: 20px;
+}
+
+main h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+main h1 .wave {
+  animation: wave 2s infinite;
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Card styles */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  row-gap: 50px;
+  justify-items: center;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-top: 3rem;
+}
+
+@media screen and (min-width: 2000px) {
+  .cards-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  height: 150px;
+  background: white;
+  border-radius: 25px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
+  width: 300px;
+}
+
+.card h2 {
+  margin: 10px 10px 10px;
+  line-height: 1.2;
+
+}
+
+.card ul {
+  display: block;
+}
+
+.card ul li {
+  margin-bottom: 5px;
+}
+
+.card ul li a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.card ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Color themes for cards */
+.card.pink {
+  background: #ffe7ec;
+}
+
+.card.yellow {
+  background: #f5f6e4;
+}
+
+/* Initial position of the div */
+.main {
+  transition: opacity 1.5s ease;
+}
+
+/* Keyframes for the falling animation */
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh); /* Move the div off the screen */
+    opacity: 0;
+  }
+}
+
+/* Iframe styling */
+.iframe-container {
+  left: 50%;        /* 50% from the left of the viewport */
+  transform: translate(-50%, -50%); /* Shift it by 50% of its width and height to truly center */
+  position: fixed;  /* Position it relative to the viewport */
+  top: 50%;         /* 50% from the top of the viewport */
+  visibility: hidden; /* Hide initially */
+}
+
+/* Show iframe after div disappears */
+.iframe-container.show {
+  visibility: visible;
+}
+
+.loading-text  {
+  left: 50%;        /* 50% from the left of the viewport */
+  transform: translate(-50%, -50%); /* Shift it by 50% of its width and height to truly center */
+  position: fixed;  /* Position it relative to the viewport */
+  top: 30%;         /* 50% from the top of the viewport */
+  opacity: 0;
+  transition: opacity 3s ease;
+}
