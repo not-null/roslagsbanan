@@ -19,17 +19,9 @@ jobs:
       - name: Debug - Check index.html
         run: cat index.html
 
-      - name: Force commit changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add -A
-          git commit -m "Force commit changes" || echo "No changes to commit"
-
-      - name: Deploy with github-pages
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BASE_BRANCH: master # The branch the action should deploy from
-          BRANCH: gh-pages # The branch the action should deploy to
-          FOLDER: .
+        with:
+          branch: gh-pages
+          folder: .  # Deploy the root folder
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use default GitHub Actions token
