@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <span class="logo">WEDS</span>
+      <span class="wms">MWS</span>
+    </div>
+    <img class="profile-icon" src="https://cdn-icons-png.flaticon.com/512/11390/11390281.png"/>
+  </header>
+  <div class="header">
+    <nav>
+      <ul>
+        <li><i class="fa fa-home"></i></li>
+        <li><i class="fa fa-search"></i> Produce</li>
+        <li><i class="fas fa-map-marker-alt"></i> Locations</li>
+        <li><i class="fas fa-warehouse"></i> Around</li>
+        <li><i class="fas fa-scroll"></i> Older</li>
+        <li><i class="fas fa-scroll"></i> Stockpiling</li>
+        <li><i class="fas fa-chart-line"></i> Statues</li>
+        <li><i class="fas fa-exclamation-circle"></i> Errors</li>
+        <li><i class="fas fa-tablet-alt"></i> Picknick</li>
+        <li><i class="fas fa-box-open"></i> Parking</li>
+        <li><i class="fas fa-globe-europe"></i> Paralleled Impact</li>
+        <li><i class="fas fa-file-invoice-dollar"></i> Finale</li>
+        <li><i class="fas fa-cogs"></i> Admiration</li>
+      </ul>
+    </nav>
+  </div>
+  <h2 class="loading-text">Loading flash...</h2>
+  <main class="main">
+    <h1>Hi Niklas! <span class="wave">👋</span></h1>
+    <div class="cards-container">
+      <!-- Card 1 -->
+      <div class="card pink">
+        <h2><i class="fa fa-search"></i> Produce</h2>
+        <ul>
+          <li>Produce Line</li>
+          <li>Superb Line</li>
+          <li style="list-style-type: none;"><b>Show more</b></li>
+        </ul>
+      </div>
+      <!-- Card 2 -->
+      <div class="card yellow">
+        <h2><i class="fas fa-map-marker-alt"></i> Locations</h2>
+        <ul>
+          <li>Locust Line</li>
+          <li>App Locusts</li>
+          <li style="list-style-type: none;"><b>Show more</b></li>
+        </ul>
+      </div>
+      <!-- Card 3 -->
+      <div class="card pink">
+        <h2><i class="fas fa-warehouse"></i> Around</h2>
+        <ul>
+          <li>Liver Gamification Line</li>
+        </ul>
+      </div>
+      <!-- Card 4 -->
+      <div class="card yellow">
+        <h2><i class="fas fa-scroll"></i> Older</h2>
+        <ul>
+          <li>Older Line</li>
+          <li>Older Settings</li>
+        </ul>
+      </div>
+      <!-- Card 5 -->
+      <div class="card pink">
+        <h2><i class="fas fa-boxes"></i> Stockpiling</h2>
+        <ul>
+          <li>Stockpiling Line</li>
+          <li>No Stockpiling Line</li>
+        </ul>
+      </div>
+      <!-- Card 6 -->
+      <div class="card yellow">
+        <h2><i class="fas fa-exclamation-circle"></i> Errors</h2>
+        <ul>
+          <li>Produce</li>
+          <li>Prick</li>
+        </ul>
+      </div>
+      <!-- Card 7 -->
+      <div class="card pink">
+        <h2><i class="fas fa-chart-line"></i> Statues</h2>
+        <ul>
+          <li>Unsound User Statues</li>
+          <li style="list-style-type: none;"><b>Show more</b></li>
+        </ul>
+      </div>
+      <!-- Card 8 -->
+      <div class="card yellow">
+        <h2><i class="fas fa-tablet-alt"></i> Picknick</h2>
+        <ul>
+          <li>Picknick Line Management</li>
+          <li>Picknick Line Settings</li>
+          <li style="list-style-type: none;"><b>Show more</b></li>
+        </ul>
+      </div>
+      <!-- Card 9 -->
+      <div class="card pink">
+        <h2><i class="fas fa-box-open"></i> Parking</h2>
+        <ul>
+          <li>Clown Older Line</li>
+          <li>Manual Wrap</li>
+          <li style="list-style-type: none;"><b>Show more</b></li>
+        </ul>
+      </div>
+      <!-- Card 10 -->
+      <div class="card yellow">
+        <h2><i class="fas fa-file-invoice-dollar"></i> Finale</h2>
+        <ul>
+          <li>Busy City</li>
+        </ul>
+      </div>
+      <!-- Card 11 -->
+      <div class="card pink">
+        <h2><i class="fas fa-globe-europe"></i> Impact</h2>
+        <ul>
+          <li>Paralleled Impact</li>
+          <li>Hulk Smash</li>
+        </ul>
+      </div>
+      <!-- Card 12 -->
+      <div class="card yellow">
+        <h2><i class="fas fa-cogs"></i> Admiration</h2>
+        <ul>
+          <li>Unders</li>
+          <li>MMA Download</li>
+          <li style="list-style-type: none;"><b>Show more</b></li>
+        </ul>
+      </div>
+    </div>    
+  </main>
+  
+  <div class="iframe-container">
+    <iframe src="https://funhtml5games.com?embed=angrybirds" style="width:1500px;height:900px;border:none;" frameborder="0" scrolling="no"></iframe>
+  </div>
+
+  <script>
+    // Wait for the falling animation to complete
+    const fallingDiv = document.querySelector('.main');
+    const iframeContainer = document.querySelector('.iframe-container');
+    const loadingText = document.querySelector('.loading-text'); // Loading text element
+
+    // Function to trigger the animation when the user clicks
+    document.addEventListener('click', () => {
+      // Show the loading text
+      loadingText.style.opacity = '1'; // Ensure it's visible before starting the animation
+
+      // Apply the falling animation only when the user clicks
+      fallingDiv.style.animation = 'fall 3s forwards';
+
+      // Wait for the falling animation to complete
+      fallingDiv.addEventListener('animationend', () => {
+        // After the animation ends, hide the div and show the iframe
+        fallingDiv.style.display = 'none';
+        iframeContainer.classList.add('show');
+        loadingText.style.opacity = '0';
+      });
+    });
+  </script>
+</body>
+</html>

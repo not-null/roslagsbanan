@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roslagsbanan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="blur-overlay"></div>
+    <button id="start-button">Start</button>
+    <ul id="results"></ul>
+    <div class="map-container" id="map-container">
+        <img src="roslagsbanan karta.png" class="map" />
+    </div>
+    <div class="input-container" id="input-container">
+        <input type="text" id="input" name="input">
+    </div>
+</body>
+<script>
+    var stations = {
+        "Kårsta": {
+            textCoords: { x: 15.5, y: 89 },
+            fillCoords: { x: 15, y: 89 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Ekskogen": {
+            textCoords: { x: 19, y: 80.5 },
+            fillCoords: { x: 16, y: 79 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Frösunda": {
+            textCoords: { x: 19, y: 73.5 },
+            fillCoords: { x: 16, y: 72 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Lindholmen": {
+            textCoords: { x: 19, y: 66.5 },
+            fillCoords: { x: 16, y: 65 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Molnby": {
+            textCoords: { x: 19, y: 59.5 },
+            fillCoords: { x: 16, y: 58 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Ormsta": {
+            textCoords: { x: 19, y: 52.5 },
+            fillCoords: { x: 16, y: 51 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Vallentuna": {
+            textCoords: { x: 19, y: 45 },
+            fillCoords: { x: 16, y: 44 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Bällsta": {
+            textCoords: { x: 19, y: 38 },
+            fillCoords: { x: 16, y: 37 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Kragstalund": {
+            textCoords: { x: 19, y: 31 },
+            fillCoords: { x: 16, y: 30 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Täby Kyrkby": {
+            textCoords: { x: 19, y: 24 },
+            fillCoords: { x: 16, y: 23 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Visinge": {
+            textCoords: { x: 21, y: 16 },
+            fillCoords: { x: 20, y: 16 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Ensta": {
+            textCoords: { x: 26.5, y: 16 },
+            fillCoords: { x: 25.5, y: 16 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Tibble": {
+            textCoords: { x: 32, y: 16 },
+            fillCoords: { x: 31, y: 16 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Roslags Näsby": {
+            textCoords: { x: 37.5, y: 16 },
+            fillCoords: { x: 36.5, y: 16 },
+            stationSize: 'hub',
+            textAngle: -45
+        },
+        "Djursholms Ösby": {
+            textCoords: { x: 60, y: 16 },
+            fillCoords: { x: 59, y: 16 },
+            stationSize: 'hub',
+            textAngle: -45
+        },
+        "Mörby": {
+            textCoords: { x: 65.5, y: 16 },
+            fillCoords: { x: 64, y: 16 },
+            stationSize: 'hub',
+            textAngle: -45
+        },
+        "Universitetet": {
+            textCoords: { x: 76.5, y: 16 },
+            fillCoords: { x: 75, y: 16 },
+            stationSize: 'hub',
+            textAngle: -45
+        },
+        "Stockholms Östra": {
+            textCoords: { x: 82, y: 16 },
+            fillCoords: { x: 80, y: 16 },
+            stationSize: 'hub',
+            textAngle: 0
+        },
+        "Österskär": {
+            textCoords: { x: 32.5, y: 89 },
+            fillCoords: { x: 0, y: 0 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Tunagård": {
+            textCoords: { x: 37, y: 80.5 },
+            fillCoords: { x: 34, y: 79.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Åkersberga": {
+            textCoords: { x: 37, y: 74.5 },
+            fillCoords: { x: 34, y: 73.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Åkers Runö": {
+            textCoords: { x: 37, y: 68 },
+            fillCoords: { x: 34, y: 67 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Täljö": {
+            textCoords: { x: 37, y: 62 },
+            fillCoords: { x: 34, y: 61 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Rydbo": {
+            textCoords: { x: 37, y: 55.5 },
+            fillCoords: { x: 34, y: 54.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Arninge": {
+            textCoords: { x: 37, y: 49.5 },
+            fillCoords: { x: 34, y: 48.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Hägernäs": {
+            textCoords: { x: 37, y: 43 },
+            fillCoords: { x: 34, y: 42 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Viggbyholm": {
+            textCoords: { x: 37, y: 37 },
+            fillCoords: { x: 34, y: 36 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Galoppfältet": {
+            textCoords: { x: 37, y: 30.5 },
+            fillCoords: { x: 34, y: 29.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Täby Centrum": {
+            textCoords: { x: 37, y: 24 },
+            fillCoords: { x: 34, y: 23 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Enebyberg": {
+            textCoords: { x: 43, y: 16 },
+            fillCoords: { x: 42, y: 18 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Djursholms Ekeby": {
+            textCoords: { x: 48.5, y: 16 },
+            fillCoords: { x: 48, y: 18 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Bråvallavägen": {
+            textCoords: { x: 54, y: 16 },
+            fillCoords: { x: 53, y: 18 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Stocksund": {
+            textCoords: { x: 70.5, y: 16 },
+            fillCoords: { x: 70, y: 20 },
+            stationSize: 'single',
+            textAngle: -45
+        },
+        "Näsbypark": {
+            textCoords: { x: 54, y: 69 },
+            fillCoords: { x: 51.5, y: 68 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Näsby Allé": {
+            textCoords: { x: 58.5, y: 59.5 },
+            fillCoords: { x: 55.5, y: 58.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Lahäll": {
+            textCoords: { x: 58.5, y: 52.5 },
+            fillCoords: { x: 55.5, y: 51.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Altorp": {
+            textCoords: { x: 58.5, y: 45.5 },
+            fillCoords: { x: 55.5, y: 44.5 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Östberga": {
+            textCoords: { x: 58.5, y: 38 },
+            fillCoords: { x: 55.5, y: 37 },
+            stationSize: 'single',
+            textAngle: 0
+        },
+        "Vendevägen": {
+            textCoords: { x: 58.5, y: 31 },
+            fillCoords: { x: 55.5, y: 30 },
+            stationSize: 'single',
+            textAngle: 0
+        }
+    };
+
+    function playMusicOnFirstClick() {
+        const backgroundMusic = new Audio('Thomas-the-Tank-Engine-8-Bit.mp3');
+        backgroundMusic.loop = true; // Enable looping
+        backgroundMusic.volume = 0.4;
+        backgroundMusic.play();
+        // Remove the event listener after the first click
+        document.removeEventListener('click', playMusicOnFirstClick);
+    }
+
+    // START GAME
+    document.getElementById('start-button').addEventListener('click', () => {
+        const blurOverlay = document.getElementById('blur-overlay');
+        const startButton = document.getElementById('start-button');
+        const content = document.getElementById('map-container');
+        const input = document.getElementById('input-container');
+
+        // Ta bort suddighet och göm knappen
+        blurOverlay.style.display = 'none';
+        startButton.style.display = 'none';
+        content.style.filter = 'none';
+        input.style.filter = 'none';
+
+        correctSound.play();
+        playMusicOnFirstClick();
+
+        document.getElementById('input').focus();
+    })
+
+    const correctSound = new Audio('correct-sound.mp3');
+
+    var guessedStations = [];
+    document.getElementById("input")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.key === 'Enter') {
+                var inputField = document.getElementById("input");
+                var input = PascalCase(inputField.value);
+                if (input in stations) {
+                    if (guessedStations.includes(input)) {
+                        // Clear the input field
+                        inputField.value = '';
+                        return;
+                    }
+                    // Play sound
+                    correctSound.play();
+
+                    guessedStations.push(input);
+                    // Print answer
+                    const { x: textX, y: textY } = stations[input].textCoords;
+                    var mapContainer = document.getElementById('map-container');
+                    var textDiv = document.createElement('div');
+                    textDiv.textContent = input;
+                    textDiv.style.left = `${textX}%`; // Använd procent för responsivitet
+                    textDiv.style.top = `${textY}%`;
+                    textDiv.classList.add('text');
+                    var angle = stations[input].textAngle;
+                    if (angle != 0) {
+                        textDiv.style.transform = `translate(0%, -50%) rotate(${angle}deg)`
+                        textDiv.style.transformOrigin = `0% 50%` // Anchor point at the start of the text
+                    }
+
+                    // Fill station
+                    const { x: fillX, y: fillY } = stations[input].fillCoords;
+                    var fillDiv = document.createElement('div');
+                    fillDiv.style.left = `${fillX}%`; // Använd procent för responsivitet
+                    fillDiv.style.top = `${fillY}%`;
+                    fillDiv.classList.add('fillCircle');
+                    fillDiv.classList.add(stations[input].stationSize);
+
+                    mapContainer.appendChild(textDiv);
+                    mapContainer.appendChild(fillDiv);
+
+                    // Clear the input field
+                    inputField.value = '';
+                }
+            }
+        });
+
+    function PascalCase(inputString) {
+        return inputString
+            .trim()
+            .toLowerCase()
+            .split(' ') // Split the string into an array of words
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+            .join(' '); // Join the words back into a single string
+    }
+</script>
+
+<!--- Analytics --->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V1YVE6370G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V1YVE6370G');
+</script>
+<!--------------------->
+
+</html>
