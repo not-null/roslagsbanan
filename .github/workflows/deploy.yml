@@ -1,0 +1,27 @@
+name: Deploy GitHub Pages with Secret
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Replace placeholder with secret
+        run: |
+          sed -i 's/GA_TRACKING_ID/${{ secrets.GA_TRACKING_ID }}/g' index.html
+
+      - name: Debug - Check index.html
+        run: cat index.html
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .  # Deploy the root folder
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use default GitHub Actions token
