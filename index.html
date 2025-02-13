@@ -12,9 +12,11 @@
 <body>
     <div id="blur-overlay"></div>
     <button id="start-button">Start</button>
+    <div id="end-game"></div>
     <ul id="results"></ul>
     <div class="map-container" id="map-container">
         <img src="roslagsbanan karta.png" class="map" />
+        <div class="timer" id="timer">05:00</div>
     </div>
     <div class="input-container" id="input-container">
         <input type="text" id="input" name="input">
@@ -283,8 +285,41 @@
         correctSound.play();
         playMusicOnFirstClick();
 
+        // Set the initial time (5 minutes)
+        let timeLeft = 5 * 60;
+        // Update the timer every second
+        const timerElement = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                showResult();
+            } else {
+                timerElement.textContent = formatTime(timeLeft);
+                timeLeft -= 1;
+            }
+        }, 1000);
+
         document.getElementById('input').focus();
     })
+
+    function showResult() {
+        const endGameDiv = document.getElementById('end-game');
+        var points = this.guessedStations.length;
+        endGameDiv.innerHTML = `<div style="padding-bottom:5px">${playerTitle(points)}!</div> <br> ${points}/${Object.keys(this.stations).length}`;
+        endGameDiv.style.display = 'block'
+        const blurOverlay = document.getElementById('blur-overlay');
+        blurOverlay.style.display = 'block'
+    }
+
+    function playerTitle(points) {
+        if (points < 5) return "PLANKARE";
+        if (points < 10) return "INNERSTADSBO";
+        if (points < 20) return "NORRORTSBO";
+        if (points < 30) return "STAMÅKARE";
+        if (points < 35) return "LOKFÖRARE";
+        if (points < 39) return "ROSLAGSBANANS STOLTHET";
+        return "HACKARE";
+    }
 
     const correctSound = new Audio('correct-sound.mp3');
 
@@ -343,6 +378,12 @@
             .split(' ') // Split the string into an array of words
             .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
             .join(' '); // Join the words back into a single string
+    }
+    // Function to format time in MM:SS format
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 </script>
 
