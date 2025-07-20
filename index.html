@@ -365,6 +365,9 @@
                     mapContainer.appendChild(textDiv);
                     mapContainer.appendChild(fillDiv);
 
+                    // Set correct font size
+                    adjustFontSize();
+
                     // Clear the input field
                     inputField.value = '';
                 }
@@ -385,15 +388,64 @@
         const secs = seconds % 60;
         return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
+
+    function adjustFontSize() {
+        const map = document.querySelector('.map');
+        if (!map) return;
+
+        const mapHeight = map.clientHeight;
+
+        const baseFontSize = 20; // px
+        const baseImageHeight = 1156; // px
+
+        const ratio = baseFontSize / baseImageHeight;
+
+        const newFontSize = mapHeight * ratio;
+
+        document.querySelectorAll('.text').forEach(textElem => {
+            textElem.style.fontSize = `${newFontSize}px`;
+        });
+    }
+
+
+    // Run on load and resize
+    window.addEventListener('load', adjustFontSize);
+    window.addEventListener('resize', adjustFontSize);
+
+    const mapContainer = document.getElementById('map-container');
+    const inputContainer = document.getElementById('input-container');
+    const inputField = document.getElementById('input');
+
+    function isMobile() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    }
+
+    inputField.addEventListener('focus', () => {
+        if (!isMobile()) return; // Only shift on mobile
+
+        const shiftAmount = '160px'; // adjust as needed
+        mapContainer.style.transform = `translateY(${shiftAmount})`;
+        inputContainer.style.transform = `translateY(${shiftAmount})`;
+
+        mapContainer.style.transition = 'transform 0.3s ease';
+        inputContainer.style.transition = 'transform 0.3s ease';
+    });
+
+    inputField.addEventListener('blur', () => {
+        if (!isMobile()) return;
+
+        mapContainer.style.transform = 'translateY(0)';
+        inputContainer.style.transform = 'translateY(0)';
+    });
 </script>
 
 <!--- Analytics --->
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_TRACKING_ID');
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'GA_TRACKING_ID');
 </script>
 <!----------------->
 
