@@ -423,7 +423,7 @@
     inputField.addEventListener('focus', () => {
         if (!isMobile()) return; // Only shift on mobile
 
-        const shiftAmount = '-150px'; // adjust as needed
+        const shiftAmount = '150px'; // adjust as needed
         mapContainer.style.transform = `translateY(${shiftAmount})`;
         inputContainer.style.transform = `translateY(${shiftAmount})`;
 
